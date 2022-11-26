@@ -8,3 +8,48 @@
   padding: 0;
   font-family: "Tisa Sans";
 }
+
+h1 {
+  margin: 15px;
+  text-align: center;
+}
+
+main {
+  display: grid;
+  width: 360px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  margin: 50px auto;
+}
+
+button {
+  height: 120px;
+  width: 120px;
+  font-size: 3.5em;
+  font-weight: 900;
+  border: none;
+  background-color: #ffffff;
+  border-right: 7px solid #18BC9C;
+  border-bottom: 7px solid #18BC9C;
+}
+
+button:hover {
+  cursor: pointer;
+  font-size: 3.8em;
+}
+
+.right {
+  border-right: none;
+}
+
+.bottom {
+  border-bottom: none;
+}
+
+.X {
+  color: #6e3535;
+}
+
+.O {
+  color: #35396e;
+}
