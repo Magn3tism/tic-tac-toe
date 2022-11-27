@@ -34,8 +34,14 @@ main {
   background-color: #ffffff;
   border-right: 7px solid #18BC9C;
   border-bottom: 7px solid #18BC9C;
+}
+
+.X {
+  color: #426e35;
+}
+
+.O {
   color: #6e3535;
-  ;
 }
 
 .tic:hover {

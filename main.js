@@ -18,7 +18,12 @@ const Player = (name, piece, score, elememt) => {
     elememt.textContent = score;
   };
 
-  return { getName, getPiece, increaseScore };
+  const resetScore = () => {
+    score = 0;
+    elememt.textContent = score;
+  };
+
+  return { getName, getPiece, increaseScore, resetScore };
 };
 
 const player1 = Player("Player X", "X", 0, p1);
@@ -117,11 +122,28 @@ const gameFunction = (() => {
     buttons.forEach((btn) => {
       btn.disabled = false;
       btn.textContent = "";
+      btn.classList.remove("X");
+      btn.classList.remove("O");
     });
 
     message.textContent = "Player X's turn";
     play.textContent = "Play Again";
     play.disabled = true;
     pieces = pieces.map((piece) => "");
+  });
+
+  reset.addEventListener("click", () => {
+    buttons.forEach((btn) => {
+      btn.disabled = true;
+      btn.textContent = "";
+      btn.classList.remove("X");
+      btn.classList.remove("O");
+    });
+
+    player1.resetScore();
+    player2.resetScore();
+    message.textContent = "Click Start!";
+    play.textContent = "Start";
+    play.disabled = false;
   });
 })();
