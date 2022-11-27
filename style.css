@@ -9,6 +9,10 @@
   font-family: "Tisa Sans";
 }
 
+body {
+  background-color: wheat;
+}
+
 h1 {
   margin: 15px;
   text-align: center;
@@ -27,11 +31,11 @@ main {
 
 .tic {
   height: 120px;
-  width: 120px;
+  min-width: 120px;
   font-size: 3.5em;
   font-weight: 900;
   border: none;
-  background-color: #ffffff;
+  background-color: wheat;
   border-right: 7px solid #18BC9C;
   border-bottom: 7px solid #18BC9C;
 }
@@ -69,6 +73,19 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-around;
+}
+
+.generic {
+  padding: 3px;
+  min-width: 60px;
+  border: 3px solid #18bc9c;
+  background-color: white;
+  border-radius: 5px;
+  color: black;
+}
+
+.generic:hover {
+  cursor: pointer;
 }
 
 #message {

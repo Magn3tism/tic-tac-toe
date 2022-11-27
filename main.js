@@ -4,9 +4,11 @@ const message = document.getElementById("message");
 
 const p1 = document.getElementById("p1");
 const p2 = document.getElementById("p2");
+const p2name = document.getElementById("p2name");
 
 const play = document.getElementById("play");
 const reset = document.getElementById("reset");
+const change = document.getElementById("change");
 
 let pieces = [];
 
@@ -32,24 +34,7 @@ const bot = Player("Bot", "O", 0, p2);
 
 const gameController = (() => {
   let player = player1;
-
-  // for (let i = 0; i < 9; i++) {
-  //   buttons[i].addEventListener("click", () => {
-  //     if (!buttons[i].textContent) {
-  //       buttons[i].textContent = player.getPiece();
-  //       buttons[i].classList.add(player.getPiece());
-  //       pieces[i] = player.getPiece();
-
-  //       if (!checkWin(player)) {
-  //         if (player.getPiece() === "X") {
-  //           player = player2;
-  //         } else player = player1;
-  //         message.textContent = `${player.getName()}'s Turn`;
-  //         checkDraw();
-  //       }
-  //     }
-  //   });
-  // }
+  let hob = 0;
 
   for (let i = 0; i < 9; i++) {
     buttons[i].addEventListener("click", () => {
@@ -58,17 +43,27 @@ const gameController = (() => {
         buttons[i].classList.add(player.getPiece());
         pieces[i] = player.getPiece();
 
-        if (!checkWin(player)) {
-          if (!checkDraw()) {
-            while (true) {
-              let position = Math.floor(Math.random() * 8);
-              console.log(position);
-              if (!buttons[position].textContent) {
-                buttons[position].textContent = "O";
-                buttons[position].classList.add("O");
-                pieces[position] = "O";
-                checkWin(bot);
-                break;
+        if (change.value === "player") {
+          if (!checkWin(player)) {
+            if (player.getPiece() === "X") {
+              player = player2;
+            } else player = player1;
+            message.textContent = `${player.getName()}'s Turn`;
+            checkDraw();
+          }
+        } else {
+          if (!checkWin(player)) {
+            if (!checkDraw()) {
+              while (true) {
+                let position = Math.floor(Math.random() * 8);
+                console.log(position);
+                if (!buttons[position].textContent) {
+                  buttons[position].textContent = "O";
+                  buttons[position].classList.add("O");
+                  pieces[position] = "O";
+                  checkWin(bot);
+                  break;
+                }
               }
             }
           }
@@ -128,6 +123,7 @@ const gameController = (() => {
       player.increaseScore();
       play.disabled = false;
       reset.disabled = false;
+      change.disabled = false;
       return 1;
     }
   };
@@ -142,9 +138,37 @@ const gameController = (() => {
       message.textContent = "Draw";
       play.disabled = false;
       reset.disabled = false;
-      return true;
+      change.disabled = false;
+      return 1;
     }
   };
+
+  change.addEventListener("click", () => {
+    buttons.forEach((btn) => {
+      btn.disabled = true;
+      btn.textContent = "";
+      btn.classList.remove("X");
+      btn.classList.remove("O");
+    });
+
+    player1.resetScore();
+    player2.resetScore();
+    message.textContent = "Click Start!";
+    play.textContent = "Start";
+    play.disabled = false;
+
+    if (hob) {
+      change.value = "player";
+      change.textContent = "Bot";
+      p2name.innerHTML = "Player O";
+      hob = 0;
+    } else {
+      change.value = "bot";
+      change.textContent = "Player";
+      p2name.innerHTML = "&nbsp;&nbsp;&nbsp;Bot&nbsp;&nbsp;&nbsp;";
+      hob = 1;
+    }
+  });
 })();
 
 const gameFunction = (() => {
@@ -160,6 +184,7 @@ const gameFunction = (() => {
     play.textContent = "Play Again";
     play.disabled = true;
     reset.disabled = true;
+    change.disabled = true;
     pieces = pieces.map((piece) => "");
   });
 
@@ -176,5 +201,6 @@ const gameFunction = (() => {
     message.textContent = "Click Start!";
     play.textContent = "Start";
     play.disabled = false;
+    change.disabled = false;
   });
 })();
