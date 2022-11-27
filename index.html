@@ -19,15 +19,15 @@
     </div>
     
     <div class="board">
-      <button></button>
-      <button></button>
-      <button class="right"></button>
-      <button></button>
-      <button></button>
-      <button class="right"></button>
-      <button class="bottom"></button>
-      <button class="bottom"></button>
-      <button class="right bottom"></button>
+      <button disabled class="tic"></button>
+      <button disabled class="tic"></button>
+      <button disabled class="right tic"></button>
+      <button disabled class="tic"></button>
+      <button disabled class="tic"></button>
+      <button disabled class="right tic"></button>
+      <button disabled class="bottom tic"></button>
+      <button disabled class="bottom tic"></button>
+      <button disabled class="right bottom tic"></button>
     </div>
 
     <div class="player">
@@ -35,7 +35,14 @@
       <sapn id="p2">0</sapn>
     </div>  
   </main>
-  <div id="message">Player 1's Turn</div>
+
+  <div class="bot">
+    <button id="play">Start</button>
+    
+    <div id="message">Click Start!</div>
+
+    <button id="reset">Reset</button>
+  </div>
 </body>
   <script src="./main.js"></script>
 </html>

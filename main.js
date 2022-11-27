@@ -1,9 +1,14 @@
-const buttons = Array.from(document.getElementsByTagName("button"));
+const buttons = Array.from(document.getElementsByClassName("tic"));
 
 const message = document.getElementById("message");
 
 const p1 = document.getElementById("p1");
 const p2 = document.getElementById("p2");
+
+const play = document.getElementById("play");
+const reset = document.getElementById("reset");
+
+let pieces = [];
 
 const Player = (name, piece, score, elememt) => {
   const getName = () => name;
@@ -20,7 +25,6 @@ const player1 = Player("Player X", "X", 0, p1);
 const player2 = Player("Player O", "O", 0, p2);
 
 const gameController = (() => {
-  let pieces = [];
   let player = player1;
 
   for (let i = 0; i < 9; i++) {
@@ -35,9 +39,8 @@ const gameController = (() => {
             player = player2;
           } else player = player1;
           message.textContent = `${player.getName()}'s Turn`;
+          checkDraw();
         }
-
-        checkDraw();
       }
     });
   }
@@ -91,6 +94,7 @@ const gameController = (() => {
       message.textContent = `${player.getName()} wins`;
       buttons.forEach((button) => (button.disabled = true));
       player.increaseScore();
+      play.disabled = false;
       return 1;
     }
   };
@@ -101,6 +105,23 @@ const gameController = (() => {
       if (piece) count++;
     });
 
-    if (count === 9) message.textContent = "Draw";
+    if (count === 9) {
+      message.textContent = "Draw";
+      play.disabled = false;
+    }
   };
+})();
+
+const gameFunction = (() => {
+  play.addEventListener("click", () => {
+    buttons.forEach((btn) => {
+      btn.disabled = false;
+      btn.textContent = "";
+    });
+
+    message.textContent = "Player X's turn";
+    play.textContent = "Play Again";
+    play.disabled = true;
+    pieces = pieces.map((piece) => "");
+  });
 })();

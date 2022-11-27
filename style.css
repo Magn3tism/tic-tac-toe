@@ -25,7 +25,7 @@ main {
   margin: 50px auto;
 }
 
-button {
+.tic {
   height: 120px;
   width: 120px;
   font-size: 3.5em;
@@ -34,9 +34,11 @@ button {
   background-color: #ffffff;
   border-right: 7px solid #18BC9C;
   border-bottom: 7px solid #18BC9C;
+  color: #6e3535;
+  ;
 }
 
-button:hover {
+.tic:hover {
   cursor: pointer;
   font-size: 3.8em;
 }
@@ -49,20 +51,18 @@ button:hover {
   border-bottom: none;
 }
 
-.X {
-  color: #6e3535;
-}
-
-.O {
-  color: #35396e;
-}
-
 .player {
   display: flex;
   flex-direction: column;
   font-size: 3em;
   margin: 50px auto;
   align-items: center;
+}
+
+.bot {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
 #message {
