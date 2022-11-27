@@ -14,12 +14,17 @@ h1 {
   text-align: center;
 }
 
-main {
+.board {
   display: grid;
   width: 360px;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   margin: 50px auto;
+}
+
+#message {
+  text-align: center;
+  font-size: 4em;
 }
 
 button {

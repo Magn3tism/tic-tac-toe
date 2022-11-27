@@ -1,5 +1,7 @@
 const buttons = Array.from(document.getElementsByTagName("button"));
 
+const message = document.getElementById("message");
+
 const gameController = (() => {
   let pieces = [];
   let piece = "X";
@@ -11,10 +13,11 @@ const gameController = (() => {
         buttons[i].classList.add(piece);
         pieces[i] = piece;
 
-        checkWin(piece);
-
-        if (piece === "X") piece = "O";
-        else piece = "X";
+        if (!checkWin(piece)) {
+          if (piece === "X") piece = "O";
+          else piece = "X";
+          message.textContent = `${piece}'s Turn`;
+        }
       }
     });
   }
@@ -60,16 +63,14 @@ const gameController = (() => {
 
   const checkWin = (piece) => {
     const pattern = piece.repeat(3);
-    console.log(`H: ${getHorizontal()}`);
-    console.log(`V: ${getVertical()}`);
-    console.log(`C: ${getCross()}`);
     if (
       getHorizontal().includes(pattern) ||
       getVertical().includes(pattern) ||
       getCross().includes(pattern)
     ) {
-      console.log(`${piece} win`);
+      message.textContent = `${piece} wins`;
       buttons.forEach((button) => (button.disabled = true));
+      return 1;
     }
   };
 })();
