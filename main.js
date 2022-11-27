@@ -2,21 +2,39 @@ const buttons = Array.from(document.getElementsByTagName("button"));
 
 const message = document.getElementById("message");
 
+const p1 = document.getElementById("p1");
+const p2 = document.getElementById("p2");
+
+const Player = (name, piece, score, elememt) => {
+  const getName = () => name;
+  const getPiece = () => piece;
+  const increaseScore = () => {
+    score++;
+    elememt.textContent = score;
+  };
+
+  return { getName, getPiece, increaseScore };
+};
+
+const player1 = Player("Player X", "X", 0, p1);
+const player2 = Player("Player O", "O", 0, p2);
+
 const gameController = (() => {
   let pieces = [];
-  let piece = "X";
+  let player = player1;
 
   for (let i = 0; i < 9; i++) {
     buttons[i].addEventListener("click", () => {
       if (!buttons[i].textContent) {
-        buttons[i].textContent = piece;
-        buttons[i].classList.add(piece);
-        pieces[i] = piece;
+        buttons[i].textContent = player.getPiece();
+        buttons[i].classList.add(player.getPiece());
+        pieces[i] = player.getPiece();
 
-        if (!checkWin(piece)) {
-          if (piece === "X") piece = "O";
-          else piece = "X";
-          message.textContent = `${piece}'s Turn`;
+        if (!checkWin(player)) {
+          if (player.getPiece() === "X") {
+            player = player2;
+          } else player = player1;
+          message.textContent = `${player.getName()}'s Turn`;
         }
 
         checkDraw();
@@ -63,15 +81,16 @@ const gameController = (() => {
     return cross;
   };
 
-  const checkWin = (piece) => {
-    const pattern = piece.repeat(3);
+  const checkWin = (player) => {
+    const pattern = player.getPiece().repeat(3);
     if (
       getHorizontal().includes(pattern) ||
       getVertical().includes(pattern) ||
       getCross().includes(pattern)
     ) {
-      message.textContent = `${piece} wins`;
+      message.textContent = `${player.getName()} wins`;
       buttons.forEach((button) => (button.disabled = true));
+      player.increaseScore();
       return 1;
     }
   };
@@ -85,5 +104,3 @@ const gameController = (() => {
     if (count === 9) message.textContent = "Draw";
   };
 })();
-
-// const Player = (piece, score) {};
