@@ -1,12 +1,8 @@
 const buttons = Array.from(document.getElementsByTagName("button"));
 
-let pieces = ["X", "O", "X", "O", "X", "O", "X", "X", "O"];
-
 const gameController = (() => {
+  let pieces = [];
   let piece = "X";
-  let horizontal = [];
-  let vertical = [];
-  let cross = [];
 
   for (let i = 0; i < 9; i++) {
     buttons[i].addEventListener("click", () => {
@@ -15,6 +11,8 @@ const gameController = (() => {
         buttons[i].classList.add(piece);
         pieces[i] = piece;
 
+        checkWin(piece);
+
         if (piece === "X") piece = "O";
         else piece = "X";
       }
@@ -22,12 +20,17 @@ const gameController = (() => {
   }
 
   const getHorizontal = () => {
+    let horizontal = [];
     horizontal.push(pieces.slice(0, 3).join(""));
     horizontal.push(pieces.slice(3, 6).join(""));
     horizontal.push(pieces.slice(6, 9).join(""));
+
+    return horizontal;
   };
 
   const getVertical = () => {
+    let vertical = [];
+
     vertical.push(
       [pieces.slice(0, 1), pieces.slice(3, 4), pieces.slice(6, 7)].join("")
     );
@@ -37,14 +40,36 @@ const gameController = (() => {
     vertical.push(
       [pieces.slice(2, 3), pieces.slice(5, 6), pieces.slice(8, 9)].join("")
     );
+
+    return vertical;
   };
 
   const getCross = () => {
+    let cross = [];
+
     cross.push(
       [pieces.slice(0, 1), pieces.slice(4, 5), pieces.slice(8, 9)].join("")
     );
+
+    cross.push(
+      [pieces.slice(2, 3), pieces.slice(4, 5), pieces.slice(6, 7)].join("")
+    );
+
+    return cross;
   };
-  cross.push(
-    [pieces.slice(2, 3), pieces.slice(4, 5), pieces.slice(6, 7)].join("")
-  );
+
+  const checkWin = (piece) => {
+    const pattern = piece.repeat(3);
+    console.log(`H: ${getHorizontal()}`);
+    console.log(`V: ${getVertical()}`);
+    console.log(`C: ${getCross()}`);
+    if (
+      getHorizontal().includes(pattern) ||
+      getVertical().includes(pattern) ||
+      getCross().includes(pattern)
+    ) {
+      console.log(`${piece} win`);
+      buttons.forEach((button) => (button.disabled = true));
+    }
+  };
 })();
