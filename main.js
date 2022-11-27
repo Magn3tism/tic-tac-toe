@@ -18,6 +18,8 @@ const gameController = (() => {
           else piece = "X";
           message.textContent = `${piece}'s Turn`;
         }
+
+        checkDraw();
       }
     });
   }
@@ -73,4 +75,15 @@ const gameController = (() => {
       return 1;
     }
   };
+
+  const checkDraw = () => {
+    let count = 0;
+    pieces.forEach((piece) => {
+      if (piece) count++;
+    });
+
+    if (count === 9) message.textContent = "Draw";
+  };
 })();
+
+// const Player = (piece, score) {};

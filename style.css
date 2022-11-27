@@ -14,17 +14,15 @@ h1 {
   text-align: center;
 }
 
+main {
+  display: flex;
+}
 .board {
   display: grid;
   width: 360px;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   margin: 50px auto;
-}
-
-#message {
-  text-align: center;
-  font-size: 4em;
 }
 
 button {
@@ -57,4 +55,17 @@ button:hover {
 
 .O {
   color: #35396e;
+}
+
+.player {
+  display: flex;
+  flex-direction: column;
+  font-size: 3em;
+  margin: 50px auto;
+  align-items: center;
+}
+
+#message {
+  text-align: center;
+  font-size: 4em;
 }
